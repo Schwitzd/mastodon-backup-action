@@ -70,6 +70,7 @@ runs:
         else
           git commit -m "Backup on ${DAY} ${HOUR}"
           git push
+        fi
 
 branding:
   icon: 'database'
