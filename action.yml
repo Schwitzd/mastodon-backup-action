@@ -6,7 +6,6 @@ inputs:
     description: 'Mastodon instance base URL'
     required: true
     type: string
-secrets:
   mastodon_access_token:
     description: 'Mastodon access token'
     required: true
@@ -49,7 +48,7 @@ runs:
     - name: Backup Mastodon posts
       shell: bash
       env:
-        MASTODON_ACCESS_TOKEN: ${{ secrets.mastodon_access_token }}
+        MASTODON_ACCESS_TOKEN: ${{ inputs.mastodon_access_token }}
         MASTODON_BASE_URL: ${{ inputs.mastodon_base_url }}
       working-directory: mastodon-backup
       run: python mastodon_backup.py
