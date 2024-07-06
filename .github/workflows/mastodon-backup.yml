@@ -1,0 +1,45 @@
+name: Backup Mastodon Posts
+
+on:
+  schedule:
+    - cron: '0 0 * * 5'  # Runs every day at midnight
+  workflow_dispatch:  # Allows manual triggering of the workflow
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    container:
+      image: ubuntu:latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: pip install BeautifulSoup requests
+
+    - name: Calculate current date and time
+      id: current_datetime
+      run: |
+        echo "::set-output name=year::$(date -u +'%Y')"
+        echo "::set-output name=day::$(date -u +'%Y-%m-%d')"
+        echo "::set-output name=hour::$(date -u +'%H:%M')"
+
+    - name: Backup Mastodon posts
+      env:
+        MASTODON_ACCESS_TOKEN: ${{ secrets.MASTODON_ACCESS_TOKEN }}
+        MASTODON_BASE_URL: ${{ secrets.MASTODON_BASE_URL }}
+      run: python backup_mastodon.py
+
+    - name: Commit and push backup
+      run: |
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+        git add mastodon_posts_${year}.json
+        git commit -m "Backup on ${day} ${hour}"
+        git push
