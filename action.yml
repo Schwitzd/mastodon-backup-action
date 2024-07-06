@@ -2,14 +2,14 @@ name: 'Mastodon Backup'
 description: 'A GitHub Action to backup Mastodon posts'
 author: 'Schwitzd'
 inputs:
-  mastodon_access_token:
-    description: 'Mastodon access token'
-    required: true
-    type: secrets
   mastodon_base_url:
     description: 'Mastodon instance base URL'
     required: true
     type: string
+secrets:
+  mastodon_access_token:
+    description: 'Mastodon access token'
+    required: true
 outputs:
   backup_file:
     description: 'Path to the backup JSON file'
