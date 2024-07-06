@@ -8,20 +8,18 @@ on:
 jobs:
   backup:
     runs-on: ubuntu-latest
-    container:
-      image: ubuntu:latest
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
     - name: Set up Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v5
       with:
-        python-version: '3.x'
+        python-version: '3.12'
 
     - name: Install dependencies
-      run: pip install BeautifulSoup requests
+      run: pip install -r requirements.txt
 
     - name: Calculate current date and time
       id: current_datetime

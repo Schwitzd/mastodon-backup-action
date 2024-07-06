@@ -7,13 +7,10 @@ from datetime import datetime
 from bs4 import BeautifulSoup
 
 # Environment variables
-#MASTODON_ACCESS_TOKEN = os.getenv('MASTODON_ACCESS_TOKEN')
-#MASTODON_BASE_URL = os.getenv('MASTODON_BASE_URL')
-MASTODON_ACCESS_TOKEN = input("api:")
-MASTODON_BASE_URL = 'https://infosec.exchange'
+MASTODON_ACCESS_TOKEN = os.getenv('MASTODON_ACCESS_TOKEN')
+MASTODON_BASE_URL = os.getenv('MASTODON_BASE_URL')
 
 # Fetch posts (toots)
-
 def fetch_posts():
     try:
         headers = {
