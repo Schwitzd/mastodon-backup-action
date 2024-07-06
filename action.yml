@@ -34,10 +34,12 @@ runs:
         python-version: '3.x'
 
     - name: Install dependencies
+      shell: bash
       working-directory: mastodon-backup
       run: pip install -r requirements.txt
 
     - name: Calculate current date and time
+      shell: bash
       id: current_datetime
       run: |
         echo "YEAR=$(date -u +'%Y')" >> $GITHUB_ENV
@@ -45,6 +47,7 @@ runs:
         echo "HOUR=$(date -u +'%H:%M')"  >> $GITHUB_ENV
 
     - name: Backup Mastodon posts
+      shell: bash
       env:
         MASTODON_ACCESS_TOKEN: ${{ secrets.mastodon_access_token }}
         MASTODON_BASE_URL: ${{ inputs.mastodon_base_url }}
@@ -52,10 +55,12 @@ runs:
       run: python mastodon_backup.py
 
     - name: Move backup json file to main repository
+      shell: bash
       run: |
         mv mastodon-backup/mastodon_backup.json main/mastodon_posts_${YEAR}.json
 
     - name: Commit and push backup
+      shell: bash
       working-directory: main
       run: |
         git config user.name github-actions
