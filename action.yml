@@ -56,7 +56,7 @@ runs:
     - name: Move backup json file to main repository
       shell: bash
       run: |
-        mv mastodon-backup/mastodon_backup.json main/mastodon_posts_${YEAR}.json
+        mv mastodon-backup/mastodon_posts_${YEAR}.json main/mastodon_posts_${YEAR}.json
 
     - name: Commit and push backup
       shell: bash
