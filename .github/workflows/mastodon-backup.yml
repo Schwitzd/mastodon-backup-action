@@ -39,6 +39,6 @@ jobs:
       run: |
         git config --global user.name 'github-actions[bot]'
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-        git add mastodon_posts_${year}.json
-        git commit -m "Backup on ${day} ${hour}"
+        git add mastodon_posts_${YEAR}.json
+        git commit -m "Backup on ${DAY} ${HOUR}"
         git push
