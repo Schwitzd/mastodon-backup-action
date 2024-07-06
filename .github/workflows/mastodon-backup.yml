@@ -1,14 +1,14 @@
 name: Mastodon Backup
 
 on:
-  workflow_call:  # This allows the workflow to be called by other workflows
+  workflow_call:
     inputs:
-      mastodon_access_token:
-        required: true
-        type: string
       mastodon_base_url:
         required: true
         type: string
+    secrets:
+      mastodon_access_token:
+        required: true
 
 jobs:
   backup:
