@@ -51,7 +51,7 @@ runs:
       working-directory: mastodon-backup
       run: python mastodon_backup.py
 
-    - name: Move backup file to main repository
+    - name: Move backup json file to main repository
       run: |
         mv mastodon-backup/mastodon_backup.json main/mastodon_posts_${YEAR}.json
 
