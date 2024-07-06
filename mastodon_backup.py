@@ -9,7 +9,6 @@ from bs4 import BeautifulSoup
 # Environment variables
 MASTODON_ACCESS_TOKEN = os.getenv('MASTODON_ACCESS_TOKEN')
 MASTODON_BASE_URL = os.getenv('MASTODON_BASE_URL')
-print(os.environ)
 
 # Fetch posts (toots)
 def fetch_posts():
