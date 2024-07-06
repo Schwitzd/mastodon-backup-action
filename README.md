@@ -1,25 +1,48 @@
-# Mastodon Posts Backup
+# Mastodon Backup GitHub Action
 
-This repository contains a Python script to backup posts (toots) from a Mastodon instance and automate the process using GitHub Actions.
+This GitHub Action automates the backup of Mastodon posts.
+
+## Inputs
+
+- `mastodon_base_url` (required): The base URL of your Mastodon instance.
+- `mastodon_access_token` (required): The access token needed to authenticate and access Mastodon's API.
 
 ## Usage
 
-To use this backup script and GitHub Action:
+To use this action, create a workflow YAML file (e.g., `.github/workflows/mastodon-backup.yml`) in your dedicated backup repository with the following content:
 
-1. Clone the repository:
+```yaml
+name: Backup Mastodon Posts
 
-   ```bash
-   git clone <repository_url>
-   cd <repository_name>
-   ```
+on:
+  schedule:
+    - cron: '0 0 * * 5'  # Runs every Friday at midnight
+  workflow_dispatch:
 
-1. Ensure you have the following secrets set in your GitHub repository settings:
-    * MASTODON_ACCESS_TOKEN: Access token for Mastodon API.
-    * MASTODON_BASE_URL: Base URL of your Mastodon instance.
+jobs:
+  mastodon-backup:
+    runs-on: ubuntu-latest
 
-1. Run the backup manually or automatically:
-    * **Manual Trigger**: You can trigger the backup manually using GitHub Actions by selecting the workflow and running it.
-    * **Automatic Trigger**: By default, the workflow is set to run every Friday at midnight UTC. You can adjust this schedule in the .github/workflows/mastodon-backup.yml file.
+    steps:
+      - name: Mastodon Backup
+        uses: Schwitzd/mastodon-backup-action@v1
+        with:
+          mastodon_access_token: ${{ secrets.MASTODON_ACCESS_TOKEN }}
+          mastodon_base_url: ${{ vars.MASTODON_BASE_URL }}
+```
 
-1. Remove backup files (if cloning this repository):
-    * Before making any commits or modifications, ensure to remove any existing `mastodon_posts_<year>.json` files to prevent unnecessary conflicts.
+### Adding Secrets and Variables
+
+To add the necessary secrets and variables:
+
+1. Repository secret & variable:
+    - Go to your dedicated backup repository on GitHub.
+    - Navigate to **Settings → Secrets and variables → Actions → New repository secret**.
+    - In the tab **Secrets**:
+        - MASTODON_ACCESS_TOKEN: The access token needed to authenticate and access Mastodon's API.
+    - In the tab **Variables**:
+        - MASTODON_BASE_URL: The base URL of your Mastodon instance.
+
+1. Workflow Permissions:
+    - To allow the Action to write to your backup repository, go to **Settings → Actions -> General → Workflow permissions**.
+    - Ensure the permissions are set to **Read and write for the workflow** to have the necessary access.

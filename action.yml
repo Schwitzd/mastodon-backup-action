@@ -9,13 +9,10 @@ inputs:
   mastodon_access_token:
     description: 'Mastodon access token'
     required: true
-outputs:
-  backup_file:
-    description: 'Path to the backup JSON file'
 
 runs:
   using: 'composite'
-  steps:
+  steps`
     - name: Checkout main repository
       uses: actions/checkout@v4
       with:
