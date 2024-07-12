@@ -12,7 +12,7 @@ inputs:
 
 runs:
   using: 'composite'
-  steps`
+  steps:
     - name: Checkout main repository
       uses: actions/checkout@v4
       with:
